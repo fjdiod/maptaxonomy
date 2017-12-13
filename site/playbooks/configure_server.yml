@@ -45,9 +45,18 @@
       git: repo='https://github.com/mickvav/maptaxonomy.git'
            version=master
              dest='/srv/www/maptaxonomy'
+      when: version == "production"
+      git: repo='https://github.com/fjdiod/maptaxonomy.git'
+           version=master
+             dest='/srv/www/maptaxonomy'
+      when: version == "test"
     - name: migrate
       django_manage:
         command: migrate
+        app_path: '/srv/www/maptaxonomy/site/maptaxonomy/'
+    - name: collect static
+      django_manage:
+        command: collectstatic
         app_path: '/srv/www/maptaxonomy/site/maptaxonomy/'
     - name: create vassals dir
       file: path='/etc/uwsgi/vassals' state=directory
