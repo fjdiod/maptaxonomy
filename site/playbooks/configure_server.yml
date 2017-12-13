@@ -46,6 +46,7 @@
            version=master
              dest='/srv/www/maptaxonomy'
       when: version == "production"
+    - name: clone site
       git: repo='https://github.com/fjdiod/maptaxonomy.git'
            version=master
              dest='/srv/www/maptaxonomy'
